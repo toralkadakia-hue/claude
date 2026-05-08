@@ -1,6 +1,317 @@
 {
-  "lastUpdated": null,
-  "cycleName": "360° Feedback Assessment",
-  "responseRate": null,
-  "leaders": []
+  "lastUpdated": "2026-05-08T16:15:22.059Z",
+  "cycleName": "360 Feedback Assessment Pilot - Simplified 2026",
+  "responseRate": {
+    "invited": 10,
+    "completed": 3
+  },
+  "leaders": [
+    {
+      "name": "Isha Paul",
+      "email": "isha.paul@vertexeducation.com",
+      "totalCompleted": 3,
+      "ratings": [
+        {
+          "principle": "Customer Centric Curiosity",
+          "pillar": "Innovative Mind",
+          "Self": 3,
+          "Peer": 4,
+          "Manager": null,
+          "Direct Report": null,
+          "Stakeholder": null
+        },
+        {
+          "principle": "Creative Problem Solving",
+          "pillar": "Innovative Mind",
+          "Self": 4,
+          "Peer": 4.5,
+          "Manager": null,
+          "Direct Report": null,
+          "Stakeholder": null
+        },
+        {
+          "principle": "Commitment to Excellence",
+          "pillar": "Innovative Mind",
+          "Self": 3,
+          "Peer": 4.5,
+          "Manager": null,
+          "Direct Report": null,
+          "Stakeholder": null
+        },
+        {
+          "principle": "Work Ethic and Accountability",
+          "pillar": "Hungry Heart",
+          "Self": 4,
+          "Peer": 4.5,
+          "Manager": null,
+          "Direct Report": null,
+          "Stakeholder": null
+        },
+        {
+          "principle": "Passionate Leadership",
+          "pillar": "Hungry Heart",
+          "Self": 3,
+          "Peer": 3.5,
+          "Manager": null,
+          "Direct Report": null,
+          "Stakeholder": null
+        },
+        {
+          "principle": "Proactive Leadership",
+          "pillar": "Hungry Heart",
+          "Self": 4,
+          "Peer": 4,
+          "Manager": null,
+          "Direct Report": null,
+          "Stakeholder": null
+        },
+        {
+          "principle": "Respect and Empathy",
+          "pillar": "Engaging Spirit",
+          "Self": 2,
+          "Peer": 4,
+          "Manager": null,
+          "Direct Report": null,
+          "Stakeholder": null
+        },
+        {
+          "principle": "Humble Leadership",
+          "pillar": "Engaging Spirit",
+          "Self": 3,
+          "Peer": 3.5,
+          "Manager": null,
+          "Direct Report": null,
+          "Stakeholder": null
+        },
+        {
+          "principle": "Adaptability and Resilience",
+          "pillar": "Engaging Spirit",
+          "Self": 2,
+          "Peer": 4,
+          "Manager": null,
+          "Direct Report": null,
+          "Stakeholder": null
+        },
+        {
+          "principle": "Clear Expectations",
+          "pillar": "Positive Impact",
+          "Self": 3,
+          "Peer": 4.5,
+          "Manager": null,
+          "Direct Report": null,
+          "Stakeholder": null
+        },
+        {
+          "principle": "Growth Leadership",
+          "pillar": "Positive Impact",
+          "Self": 3,
+          "Peer": 4,
+          "Manager": null,
+          "Direct Report": null,
+          "Stakeholder": null
+        },
+        {
+          "principle": "Involved Leadership",
+          "pillar": "Positive Impact",
+          "Self": 4,
+          "Peer": 4.5,
+          "Manager": null,
+          "Direct Report": null,
+          "Stakeholder": null
+        }
+      ],
+      "strengths": {
+        "Customer Centric Curiosity": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Creative Problem Solving": {
+          "Self": 1,
+          "Peer": 1,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Commitment to Excellence": {
+          "Self": 0,
+          "Peer": 1,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Work Ethic and Accountability": {
+          "Self": 1,
+          "Peer": 2,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Passionate Leadership": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Proactive Leadership": {
+          "Self": 0,
+          "Peer": 1,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Respect and Empathy": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Humble Leadership": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Adaptability and Resilience": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Clear Expectations": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Growth Leadership": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Involved Leadership": {
+          "Self": 1,
+          "Peer": 1,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        }
+      },
+      "development": {
+        "Customer Centric Curiosity": {
+          "Self": 0,
+          "Peer": 1,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Creative Problem Solving": {
+          "Self": 0,
+          "Peer": 1,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Commitment to Excellence": {
+          "Self": 1,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Work Ethic and Accountability": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Passionate Leadership": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Proactive Leadership": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Respect and Empathy": {
+          "Self": 1,
+          "Peer": 1,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Humble Leadership": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Adaptability and Resilience": {
+          "Self": 1,
+          "Peer": 1,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Clear Expectations": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Growth Leadership": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        },
+        "Involved Leadership": {
+          "Self": 0,
+          "Peer": 0,
+          "Manager": 0,
+          "Direct Report": 0,
+          "Stakeholder": 0
+        }
+      },
+      "comments": [
+        {
+          "relationship": "Peer",
+          "examples": "A strong illustration of Isha's work ethic, accountability, and involved leadership is when she took charge of the Adaptive rollout. She dedicated herself to achieving results, seamlessly transitioning from overarching platform strategy to intricate planning details.",
+          "improvement": "Isha has the opportunity to set clearer personal boundaries and manage her hungry hearth more effectively, which would improve her adaptability and resilience.",
+          "nextSteps": "I suggest she spend time engaging directly with the impact of our work — supporting schools and transforming students’ lives — as a way to recharge."
+        },
+        {
+          "relationship": "Peer",
+          "examples": "Proactive Leadership: Volunteering as the test subject for the refined 360 pilot is a good example. Rather than rolling out a new process and asking others to go first, she put herself in the position of receiving feedback first. \r\n\r\nCommitment to Excellence: In a recent senior-level hiring process we collaborated on, she pushed for rigor in candidate evaluation rather than settling for speed. She brought a consistent point of view, raised the right concerns at the right moments, and helped sharpen the decision.\r\n\r\nWork Ethic and Accountability: On a recent sensitive role redefinition involving one of my direct reports, Isha responded promptly and  providing me a clear, timely, and legally sound guidance.",
+          "improvement": "As Vertex scales, HR is increasingly a partner in shaping how the org adapts, not just how it executes. Isha already brings rigor and follow-through. Adding more visible experimentation and cross-functional co-creation, where the answer isn't obvious upfront, would broaden her influence beyond the HR lane and strengthen her footprint on the leadership team.",
+          "nextSteps": "Pick one or two cross-functional initiatives where the path forward isn't fully defined, and use them as a venue to practice working the problem in the open. Frame it, pull in voices early, run short iterations. The iterations matter more than the outcome."
+        },
+        {
+          "relationship": "Self",
+          "examples": "Creative problem solving - I tend to think in structured ways, especially in how I approach more complex problems. One example of this is my work with Workstream 5. Our first step was to break it down into more digestible pieces and build an issue tree that helps us drive the work forward.\r\n\r\nWork ethic & accountability - I care deeply about the quality of my work and will go the extra mile on it, frequently. I hold myself and my teams accountable. An example of this is on performance evaluations -- I will both work hard on it myself and also ensure that my team is supporting it with rigor on a suitable and manageable timeline.\r\n\r\nInvolved leadership - I make it a point to ask my teams questions and stay engaged with the details so that I can be a helpful thought partner. One example of this is being able to take on the day-to-day of HR when the previous Director departed. Without deep involvement, taking on that responsibility would have been impossible.",
+          "improvement": "I think these are all areas where I can better my skillset. I don't manage conflict particularly well (I avoid it). I think I could do more to channel CI techniques more formally. I also think I let stress get to me and could manage it better with regulation and rest.",
+          "nextSteps": "I'd say respect and empathy to improve my conflict management style and capabilities."
+        }
+      ]
+    }
+  ]
 }
