@@ -1150,6 +1150,7 @@ function renderDiag(data) {
   const d    = data._diag || {};
   const colMap      = d.colMap || {};
   const princCols   = d.principleCols || [];
+  const samples     = d.samples || { strQ: {}, devQ: {} };
   const leaders     = data.leaders || [];
 
   const colRows = Object.entries(colMap).map(([k, v]) => {
@@ -1224,6 +1225,22 @@ function renderDiag(data) {
         </tr></thead>
         <tbody>${leaderRows}</tbody>
       </table>
+    </div>
+    <div style="margin-top:20px">
+      <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-bottom:8px">Raw Cell Values — Strengths Column (strQ)</div>
+      ${Object.keys(samples.strQ).length
+        ? Object.entries(samples.strQ).map(([rel, val]) =>
+            `<div style="margin-bottom:8px"><span style="font-size:0.75rem;font-weight:700;color:#1d4ed8;margin-right:8px">${rel}</span><code style="font-size:0.74rem;background:#f1f5f9;padding:3px 7px;border-radius:4px;word-break:break-all">${esc(val)}</code></div>`
+          ).join('')
+        : '<p style="color:#dc2626;font-size:0.82rem">⚠ No values found — strQ column may not be detected correctly</p>'}
+    </div>
+    <div style="margin-top:16px">
+      <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-bottom:8px">Raw Cell Values — Development Column (devQ)</div>
+      ${Object.keys(samples.devQ).length
+        ? Object.entries(samples.devQ).map(([rel, val]) =>
+            `<div style="margin-bottom:8px"><span style="font-size:0.75rem;font-weight:700;color:#ea580c;margin-right:8px">${rel}</span><code style="font-size:0.74rem;background:#f1f5f9;padding:3px 7px;border-radius:4px;word-break:break-all">${esc(val)}</code></div>`
+          ).join('')
+        : '<p style="color:#dc2626;font-size:0.82rem">⚠ No values found — devQ column may not be detected correctly</p>'}
     </div>`;
 }
 
@@ -1256,9 +1273,10 @@ function normStr(s) {
     .trim();
 }
 
-// Match a principle name from the multi-select against our canonical labels (tolerates & vs and, typos, extra spaces)
+// Match a principle name from the multi-select against our canonical labels
+// Tolerates: & vs and, extra punctuation, numbered prefixes ("3. Work Ethic…"), extra trailing text
 function matchPrinciple(raw) {
-  const s = raw.trim();
+  const s = (raw || '').trim();
   if (!s) return null;
 
   // 1. Exact match
@@ -1266,8 +1284,7 @@ function matchPrinciple(raw) {
   if (exact) return exact.label;
 
   // 2. Case-insensitive exact
-  const lower = s.toLowerCase();
-  const ci = PRINCIPLES.find(p => p.label.toLowerCase() === lower);
+  const ci = PRINCIPLES.find(p => p.label.toLowerCase() === s.toLowerCase());
   if (ci) return ci.label;
 
   // 3. Normalized match (handles & vs and, punctuation, extra spaces)
@@ -1275,7 +1292,22 @@ function matchPrinciple(raw) {
   const normed = PRINCIPLES.find(p => normStr(p.label) === sNorm);
   if (normed) return normed.label;
 
-  // 4. Partial match on first 14 normalized chars (handles typos like "Curiousity")
+  // 4. Contains check: sNorm contains the full normalized principle label
+  //    (handles "2. Work Ethic & Accountability" or "Work Ethic & Accountability - some note")
+  const contained = PRINCIPLES.find(p => {
+    const pn = normStr(p.label);
+    return sNorm.includes(pn);
+  });
+  if (contained) return contained.label;
+
+  // 5. Principle label contains the normalized raw (handles truncated exports)
+  const contained2 = PRINCIPLES.find(p => {
+    const pn = normStr(p.label);
+    return pn.includes(sNorm) && sNorm.length >= 10;
+  });
+  if (contained2) return contained2.label;
+
+  // 6. Partial prefix match on first 14 normalized chars (handles typos like "Curiousity")
   const partial = PRINCIPLES.find(p => {
     const pn = normStr(p.label);
     return sNorm.startsWith(pn.slice(0, 14)) || pn.startsWith(sNorm.slice(0, 14));
@@ -1325,7 +1357,20 @@ function processWorkbook(wb) {
     label: p.label, col: p.col, header: hdrs[p.col] || '⚠ NOT FOUND'
   }));
 
+  // Capture sample raw values from strQ / devQ so we can show them in diagnostics
+  // (keyed by normalized relationship, one sample per relationship type)
+  const diagSamples = { strQ: {}, devQ: {} };
+
   const leaderMap = {};
+
+  // Split multi-select cell on any common delimiter Quantum might use
+  const parse = v => {
+    if (!v) return [];
+    return v.toString()
+      .split(/[,;|\n\r]+/)          // comma, semicolon, pipe, newline
+      .map(s => matchPrinciple(s.trim()))
+      .filter(Boolean);
+  };
 
   for (let i = 1; i < rows.length; i++) {
     const row = rows[i];
@@ -1343,14 +1388,17 @@ function processWorkbook(wb) {
       leaderMap[name].email = email.toString().toLowerCase().trim();
     }
 
+    // Collect raw sample values for diagnostics (first seen per rel type)
+    if (C.strQ >= 0 && row[C.strQ] && !diagSamples.strQ[rel])
+      diagSamples.strQ[rel] = row[C.strQ].toString();
+    if (C.devQ >= 0 && row[C.devQ] && !diagSamples.devQ[rel])
+      diagSamples.devQ[rel] = row[C.devQ].toString();
+
     const ratings = {};
     PRINCIPLES.forEach(p => {
       const v = row[p.col];
       ratings[p.key] = (v && SCORE_MAP[v] != null) ? SCORE_MAP[v] : null;
     });
-
-    // Parse multi-select and fuzzy-match principle names to canonical labels
-    const parse = v => v ? v.toString().split(',').map(s => matchPrinciple(s)).filter(Boolean) : [];
 
     leaderMap[name].responses.push({
       rel,
@@ -1434,12 +1482,12 @@ function processWorkbook(wb) {
 
   return {
     lastUpdated: new Date().toISOString(), cycleName, responseRate, leaders,
-    _diag: { colMap: diagColMap, principleCols: diagPrincipleCols }
+    _diag: { colMap: diagColMap, principleCols: diagPrincipleCols, samples: diagSamples }
   };
 }
 
 /* ── ADMIN ── */
-const DEFAULTS = { owner: 'toralkadakia-hue', repo: 'claude', branch: 'main', token: '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' };
+const DEFAULTS = { owner: 'toralkadakia-hue', repo: 'claude', branch: 'main', token: '' };
 
 function loadSettings() {
   ['owner','repo','branch','token'].forEach(k => {
