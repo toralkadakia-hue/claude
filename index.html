@@ -512,28 +512,38 @@
   </header>
   <div class="admin-body">
 
-    <div class="admin-card">
-      <h3>GitHub Settings</h3>
-      <div class="grid-2">
-        <div class="form-group">
-          <label>GitHub Owner <span style="color:#94a3b8;font-weight:400">(username or org)</span></label>
-          <input type="text" id="gh-owner" placeholder="your-username">
-        </div>
-        <div class="form-group">
-          <label>Repository Name</label>
-          <input type="text" id="gh-repo" placeholder="360-feedback-dashboard">
-        </div>
-        <div class="form-group">
-          <label>Branch</label>
-          <input type="text" id="gh-branch" placeholder="main">
-        </div>
-        <div class="form-group">
-          <label>Personal Access Token <span style="color:#94a3b8;font-weight:400">(stored in browser only)</span></label>
-          <input type="password" id="gh-token" placeholder="ghp_...">
+    <div class="admin-card" id="token-card">
+      <h3>GitHub Access Token</h3>
+      <div id="token-set-view" style="display:none">
+        <div style="display:flex;align-items:center;gap:16px;padding:12px 16px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px">
+          <span style="color:#16a34a;font-size:1.2rem">✓</span>
+          <div style="flex:1">
+            <div style="font-weight:600;font-size:0.88rem;color:#166534">Token saved in this browser</div>
+            <div style="font-size:0.78rem;color:#4ade80;margin-top:2px" id="token-preview"></div>
+          </div>
+          <button class="btn-tiny" onclick="showTokenEntry()">Change</button>
         </div>
       </div>
-      <button class="btn-secondary" onclick="saveSettings()">Save Settings</button>
-      <span id="settings-ok" style="display:none;margin-left:12px" class="status-ok">✓ Saved</span>
+      <div id="token-entry-view">
+        <p style="font-size:0.82rem;color:#64748b;margin-bottom:14px;line-height:1.6">
+          Paste your GitHub Personal Access Token below. It will be saved in <strong>this browser only</strong> — never sent anywhere except GitHub's API when you publish.
+          <br><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" style="color:#1d4ed8;font-size:0.8rem">
+            ↗ Generate a token on GitHub
+          </a>
+          <span style="color:#94a3b8;font-size:0.78rem"> (set Repository = claude, Permission = Contents → Read &amp; Write)</span>
+        </p>
+        <div style="display:flex;gap:10px;align-items:center">
+          <input type="password" id="gh-token" placeholder="github_pat_…" autocomplete="off"
+                 style="flex:1;padding:10px 14px;border:1.5px solid #d1d5db;border-radius:8px;font-size:0.92rem;outline:none;font-family:monospace"
+                 onkeydown="if(event.key==='Enter')saveToken()">
+          <button class="btn-action" onclick="saveToken()" style="white-space:nowrap">Save Token</button>
+        </div>
+        <div id="token-err" class="error-msg" style="margin-top:6px"></div>
+      </div>
+      <!-- hidden fields for owner/repo/branch — pre-filled, not normally shown -->
+      <input type="hidden" id="gh-owner" value="toralkadakia-hue">
+      <input type="hidden" id="gh-repo"   value="claude">
+      <input type="hidden" id="gh-branch" value="main">
     </div>
 
     <div class="admin-card">
@@ -1490,21 +1500,44 @@ function processWorkbook(wb) {
 const DEFAULTS = { owner: 'toralkadakia-hue', repo: 'claude', branch: 'main', token: '' };
 
 function loadSettings() {
-  ['owner','repo','branch','token'].forEach(k => {
-    const el = document.getElementById('gh-' + k);
-    if (el) el.value = localStorage.getItem('gh_' + k) || DEFAULTS[k] || '';
-  });
+  // Owner/repo/branch are pre-filled as hidden fields; just load token state
+  const token = localStorage.getItem('gh_token') || '';
+  if (token) {
+    showTokenSaved(token);
+  } else {
+    showTokenEntry();
+  }
 }
 
-function saveSettings() {
-  ['owner','repo','branch','token'].forEach(k => {
-    const v = document.getElementById('gh-' + k).value.trim();
-    if (v) localStorage.setItem('gh_' + k, v);
-  });
-  const ok = document.getElementById('settings-ok');
-  ok.style.display = 'inline';
-  setTimeout(() => ok.style.display = 'none', 2000);
+function showTokenEntry() {
+  document.getElementById('token-set-view').style.display   = 'none';
+  document.getElementById('token-entry-view').style.display = 'block';
+  document.getElementById('gh-token').value = '';
+  document.getElementById('token-err').textContent = '';
 }
+
+function showTokenSaved(token) {
+  document.getElementById('token-set-view').style.display   = 'flex';
+  document.getElementById('token-entry-view').style.display = 'none';
+  // Show masked preview: first 16 chars + …
+  document.getElementById('token-preview').textContent = token.slice(0, 20) + '…';
+  document.getElementById('token-set-view').style.display = 'block';
+}
+
+function saveToken() {
+  const token = (document.getElementById('gh-token').value || '').trim();
+  const errEl = document.getElementById('token-err');
+  errEl.textContent = '';
+  if (!token || token.length < 10) {
+    errEl.textContent = 'Please paste a valid GitHub token.';
+    return;
+  }
+  localStorage.setItem('gh_token', token);
+  showTokenSaved(token);
+}
+
+// Keep saveSettings as alias for backward compat
+function saveSettings() { saveToken(); }
 
 function onFileSelected(e) {
   const f = e.target.files[0];
@@ -1572,15 +1605,16 @@ function previewLeader(i) {
 }
 
 async function publishData() {
-  const owner  = document.getElementById('gh-owner')?.value.trim()  || localStorage.getItem('gh_owner')  || DEFAULTS.owner  || '';
-  const repo   = document.getElementById('gh-repo')?.value.trim()   || localStorage.getItem('gh_repo')   || DEFAULTS.repo   || '';
-  const branch = document.getElementById('gh-branch')?.value.trim() || localStorage.getItem('gh_branch') || DEFAULTS.branch || 'main';
-  const token  = document.getElementById('gh-token')?.value.trim()  || localStorage.getItem('gh_token')  || '';
+  const owner  = DEFAULTS.owner;
+  const repo   = DEFAULTS.repo;
+  const branch = DEFAULTS.branch;
+  const token  = localStorage.getItem('gh_token') || '';
   const statusEl = document.getElementById('publish-status');
 
   if (!token) {
     statusEl.className = 'status-err';
-    statusEl.textContent = '✗ Enter your GitHub Personal Access Token above first.';
+    statusEl.textContent = '✗ No token saved — paste your GitHub token in the token field above first.';
+    showTokenEntry();
     document.getElementById('gh-token')?.focus();
     return;
   }
@@ -1598,8 +1632,6 @@ async function publishData() {
 
   try {
     await commitJSON(token, owner, repo, branch, 'data.json', processed);
-    // Save token for next time
-    localStorage.setItem('gh_token', token);
     appData = processed;
     btn.textContent = '✓ Published';
     btn.style.background = '#15803d';
