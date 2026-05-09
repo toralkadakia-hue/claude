@@ -1128,6 +1128,38 @@ function generateActionItems(leader) {
 }
 
 /* ── DATA PROCESSING ── */
+
+// Normalize relationship labels — handles plurals, casing, and Quantum variations
+function normalizeRelationship(raw) {
+  const s = (raw || '').toString().trim();
+  const map = {
+    'myself':          'Self',
+    'self':            'Self',
+    'peer':            'Peer',
+    'peers':           'Peer',
+    'manager':         'Manager',
+    'managers':        'Manager',
+    'direct report':   'Direct Report',
+    'direct reports':  'Direct Report',
+    'stakeholder':     'Stakeholder',
+    'stakeholders':    'Stakeholder',
+  };
+  return map[s.toLowerCase()] || s;
+}
+
+// Match a principle name from the multi-select against our canonical labels (tolerates minor variations)
+function matchPrinciple(raw) {
+  const s = raw.trim();
+  const exact = PRINCIPLES.find(p => p.label === s);
+  if (exact) return exact.label;
+  const lower = s.toLowerCase();
+  const ci = PRINCIPLES.find(p => p.label.toLowerCase() === lower);
+  if (ci) return ci.label;
+  const partial = PRINCIPLES.find(p => lower.includes(p.label.toLowerCase().slice(0, 12)) ||
+                                       p.label.toLowerCase().includes(lower.slice(0, 12)));
+  return partial ? partial.label : null;
+}
+
 function processWorkbook(wb) {
   const sheet = wb.Sheets['Raw Data'];
   if (!sheet) throw new Error('"Raw Data" sheet not found in the uploaded file.');
@@ -1169,10 +1201,10 @@ function processWorkbook(wb) {
 
     if (!leaderMap[name]) leaderMap[name] = { name, email: null, responses: [] };
 
-    const rel   = (row[C.rel] || 'Other').toString().trim();
+    const rel   = normalizeRelationship(row[C.rel]);
     const email = row[C.email];
 
-    if (rel === 'Myself' && email) {
+    if (rel === 'Self' && email) {
       leaderMap[name].email = email.toString().toLowerCase().trim();
     }
 
@@ -1182,7 +1214,8 @@ function processWorkbook(wb) {
       ratings[p.key] = (v && SCORE_MAP[v] != null) ? SCORE_MAP[v] : null;
     });
 
-    const parse = v => v ? v.toString().split(',').map(s => s.trim()).filter(Boolean) : [];
+    // Parse multi-select and fuzzy-match principle names to canonical labels
+    const parse = v => v ? v.toString().split(',').map(s => matchPrinciple(s)).filter(Boolean) : [];
 
     leaderMap[name].responses.push({
       rel,
@@ -1198,8 +1231,7 @@ function processWorkbook(wb) {
   const leaders = Object.values(leaderMap).map(leader => {
     const byRel = {};
     leader.responses.forEach(r => {
-      const key = r.rel === 'Myself' ? 'Self' : r.rel;
-      (byRel[key] = byRel[key] || []).push(r);
+      (byRel[r.rel] = byRel[r.rel] || []).push(r);
     });
 
     const ratings = PRINCIPLES.map(p => {
@@ -1216,15 +1248,21 @@ function processWorkbook(wb) {
     const developCounts  = initCounts();
 
     leader.responses.forEach(r => {
-      const key = r.rel === 'Myself' ? 'Self' : r.rel;
-      r.strengths.forEach(p => { if (strengthCounts[p]?.[key] != null) strengthCounts[p][key]++; });
-      r.development.forEach(p => { if (developCounts[p]?.[key] != null) developCounts[p][key]++; });
+      const key = r.rel;
+      r.strengths.forEach(p => {
+        if (!strengthCounts[p]) return;
+        strengthCounts[p][key] = (strengthCounts[p][key] || 0) + 1;
+      });
+      r.development.forEach(p => {
+        if (!developCounts[p]) return;
+        developCounts[p][key] = (developCounts[p][key] || 0) + 1;
+      });
     });
 
     const comments = leader.responses
       .filter(r => r.examples || r.improvement || r.nextSteps)
       .map(r => ({
-        relationship: r.rel === 'Myself' ? 'Self' : r.rel,
+        relationship: r.rel,
         examples:    r.examples,
         improvement: r.improvement,
         nextSteps:   r.nextSteps,
