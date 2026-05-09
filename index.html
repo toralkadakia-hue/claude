@@ -898,7 +898,7 @@ function renderMentions(leader) {
   function renderList(items, color) {
     if (!items.length) return '<p style="color:#94a3b8;font-size:0.85rem">None mentioned</p>';
     const maxVal = items[0].total;
-    return items.slice(0, 6).map(x => {
+    return items.map(x => {
       const pills = x.groups.map(([g, cnt]) => {
         const p = GROUP_PILL[g] || { cls: 'mpill-peer', label: g };
         return `<span class="mpill ${p.cls}">${p.label}${cnt > 1 ? ' ×' + cnt : ''}</span>`;
