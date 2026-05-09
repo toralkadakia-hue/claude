@@ -925,10 +925,17 @@ function renderComments(leader) {
     return a;
   }
 
+  const GROUP_ORDER = ['Self', 'Peer', 'Direct Report', 'Manager', 'Stakeholder', 'Other'];
+
   function orderResponses(list) {
-    const self    = list.filter(c => c.relationship === 'Self');
-    const nonSelf = shuffle(list.filter(c => c.relationship !== 'Self'));
-    return [...self, ...nonSelf];
+    const buckets = {};
+    GROUP_ORDER.forEach(g => { buckets[g] = []; });
+    list.forEach(c => {
+      const key = GROUP_ORDER.includes(c.relationship) ? c.relationship : 'Other';
+      buckets[key].push(c);
+    });
+    // Self is kept as-is; all other groups are individually shuffled
+    return GROUP_ORDER.flatMap(g => g === 'Self' ? buckets[g] : shuffle(buckets[g]));
   }
 
   const questions = [
@@ -1109,11 +1116,11 @@ function generateActionItems(leader) {
     if (items.length >= 4) break;
   }
 
-  // Add a next-steps action if written feedback contained concrete recommendations
+  // Add a next-steps action if any respondent offered concrete recommendations
   if (nextStepsRaw.length && items.length < 5) {
     items.push({
-      title: 'Act on Peer Recommendations',
-      desc: 'Your peers offered specific development suggestions. Review them, pick one concrete action, and share your commitment with your manager or a trusted colleague to create accountability.',
+      title: 'Act on Respondent Recommendations',
+      desc: 'Your respondents offered specific development suggestions in their written feedback. Review them, pick one concrete action, and share your commitment with your manager or a trusted colleague to create accountability.',
     });
   }
 
@@ -1128,7 +1135,29 @@ function processWorkbook(wb) {
   const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: null });
   if (rows.length < 2) throw new Error('Raw Data sheet is empty.');
 
-  const C = { email: 3, status: 9, rel: 29, strQ: 42, devQ: 43, nameQ: 44, ex: 45, imp: 46, next: 47 };
+  // Detect column positions dynamically from header row so future exports still work
+  const hdrs = (rows[0] || []).map(h => (h || '').toString().toLowerCase().trim());
+  const findCol = (...terms) => hdrs.findIndex(h => terms.some(t => h.includes(t.toLowerCase())));
+
+  const C = {
+    email:  findCol('email'),
+    status: findCol('participant status'),
+    rel:    findCol('relationship with the leader'),
+    strQ:   findCol('most impactful leadership principles'),
+    devQ:   findCol('could improve'),
+    nameQ:  findCol('who are you rating'),
+    ex:     findCol('provide examples'),
+    imp:    findCol('provide feedback on why'),
+    next:   findCol('recommend this leader focus', 'developing in the next'),
+  };
+
+  // Map each principle to its column by matching header text
+  PRINCIPLES.forEach(p => {
+    const key = p.label.toLowerCase().substring(0, 18);
+    const found = hdrs.findIndex(h => h.includes(key));
+    if (found >= 0) p.col = found;
+  });
+
   const leaderMap = {};
 
   for (let i = 1; i < rows.length; i++) {
