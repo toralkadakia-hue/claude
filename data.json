@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-09T01:58:55.195Z",
+  "lastUpdated": "2026-05-09T03:15:21.314Z",
   "cycleName": "360 Feedback Assessment Pilot - Simplified 2026",
   "responseRate": {
     "invited": 10,
@@ -146,7 +146,7 @@
           "Self": 1,
           "Peer": 2,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 1,
           "Stakeholder": 0
         },
         "Passionate Leadership": {
@@ -211,7 +211,7 @@
           "Self": 0,
           "Peer": 1,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 2,
           "Stakeholder": 0
         },
         "Creative Problem Solving": {
@@ -341,7 +341,126 @@
           "improvement": "I think there are a lot of opportunities with things like the engagement survey to really create some more actionable ideas.",
           "nextSteps": "I would love to see her turn questions around more often. Not in a 'answer a question with a question' type of way, but I do think she has a tendency to sometimes just provide an answer or a solution so we can move forward (which is sometimes needed!) I think particularly with our working relationship, when it's possible, helping guide through problems or ideas would help me grow as an employee as well."
         }
-      ]
+      ],
+      "_relCounts": {
+        "Peer": 2,
+        "Self": 1,
+        "Direct Report": 5
+      }
     }
-  ]
+  ],
+  "_diag": {
+    "colMap": {
+      "email": {
+        "col": 3,
+        "header": "email"
+      },
+      "status": {
+        "col": 9,
+        "header": "participant status"
+      },
+      "rel": {
+        "col": 29,
+        "header": "what is your relationship with the leader you are providing rating and providing feedback to?"
+      },
+      "strQ": {
+        "col": 42,
+        "header": "what are the most impactful leadership principles this leader regularly exhibits? choose 3"
+      },
+      "devQ": {
+        "col": 43,
+        "header": "what leadership principle(s) do you believe this leader could improve? choose 1-3"
+      },
+      "nameQ": {
+        "col": 44,
+        "header": "who are you rating and providing feedback to? (first and last name)"
+      },
+      "ex": {
+        "col": 45,
+        "header": "provide examples where this leader has exhibited the 3 principles."
+      },
+      "imp": {
+        "col": 46,
+        "header": "provide feedback on why you think that improving this behavior is important for this leader."
+      },
+      "next": {
+        "col": 47,
+        "header": "what do you recommend this leader focus on developing in the next 3 months?"
+      }
+    },
+    "principleCols": [
+      {
+        "label": "Customer Centric Curiosity",
+        "col": 30,
+        "header": "customer centric curiosity (innovative mind): leaders make quick decisions to adjust strategies based on customer data and insights."
+      },
+      {
+        "label": "Creative Problem Solving",
+        "col": 31,
+        "header": "creative problem solving (innovative mind): leaders drive innovation through collaboration and learning quick from success and failure."
+      },
+      {
+        "label": "Commitment to Excellence",
+        "col": 32,
+        "header": "commitment to excellence (innovative mind): leaders drive to continuously improve and deliver exceptional results."
+      },
+      {
+        "label": "Work Ethic and Accountability",
+        "col": 33,
+        "header": "work ethic and accountability (hungry heart): leaders set high standards and rigorously track performance."
+      },
+      {
+        "label": "Passionate Leadership",
+        "col": 34,
+        "header": "passionate leadership (hungry heart): leaders connect work to the core purpose and sustain team motivation."
+      },
+      {
+        "label": "Proactive Leadership",
+        "col": 35,
+        "header": "proactive leadership (hungry heart): leaders anticipate and act on priorities with urgency."
+      },
+      {
+        "label": "Respect and Empathy",
+        "col": 36,
+        "header": "respect and empathy (engaging spirit): leaders listen actively and address conflict constructively."
+      },
+      {
+        "label": "Humble Leadership",
+        "col": 37,
+        "header": "humble leadership (engaging spirit): leaders recognize others and seek feedback from all levels."
+      },
+      {
+        "label": "Adaptability and Resilience",
+        "col": 38,
+        "header": "adaptability and resilience (engaging spirit): leaders adapt quickly and stay resilient under pressure."
+      },
+      {
+        "label": "Clear Expectations",
+        "col": 39,
+        "header": "clear expectations (positive impact): leaders set measurable goals and check-in regularly."
+      },
+      {
+        "label": "Growth Leadership",
+        "col": 40,
+        "header": "growth leadership (positive impact): leaders deliver timely feedback that supports development."
+      },
+      {
+        "label": "Involved Leadership",
+        "col": 41,
+        "header": "involved leadership (positive impact): leaders stay engaged to assist without micromanaging."
+      }
+    ],
+    "samples": {
+      "strQ": {
+        "Peer": "Work Ethic and Accountability,Creative Problem Solving,Involved Leadership",
+        "Self": "Work Ethic and Accountability,Creative Problem Solving,Involved Leadership",
+        "Direct Report": "Passionate Leadership,Creative Problem Solving,Work Ethic & Accountability"
+      },
+      "devQ": {
+        "Peer": "Respect and Empathy,Adaptability and Resilience,Customer Centric Curiosity",
+        "Self": "Respect and Empathy,Commitment to Excellence,Adaptability and Resilience",
+        "Direct Report": "Commitment to Excellence,Clear Expectations,Growth Leadership"
+      }
+    }
+  }
 }
