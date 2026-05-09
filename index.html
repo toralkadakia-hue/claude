@@ -1147,16 +1147,39 @@ function normalizeRelationship(raw) {
   return map[s.toLowerCase()] || s;
 }
 
-// Match a principle name from the multi-select against our canonical labels (tolerates minor variations)
+// Normalize a string for fuzzy matching: lowercase, & → and, collapse spaces, strip punctuation
+function normStr(s) {
+  return (s || '').toLowerCase()
+    .replace(/\s*&\s*/g, ' and ')
+    .replace(/[^a-z0-9 ]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Match a principle name from the multi-select against our canonical labels (tolerates & vs and, typos, extra spaces)
 function matchPrinciple(raw) {
   const s = raw.trim();
+  if (!s) return null;
+
+  // 1. Exact match
   const exact = PRINCIPLES.find(p => p.label === s);
   if (exact) return exact.label;
+
+  // 2. Case-insensitive exact
   const lower = s.toLowerCase();
   const ci = PRINCIPLES.find(p => p.label.toLowerCase() === lower);
   if (ci) return ci.label;
-  const partial = PRINCIPLES.find(p => lower.includes(p.label.toLowerCase().slice(0, 12)) ||
-                                       p.label.toLowerCase().includes(lower.slice(0, 12)));
+
+  // 3. Normalized match (handles & vs and, punctuation, extra spaces)
+  const sNorm = normStr(s);
+  const normed = PRINCIPLES.find(p => normStr(p.label) === sNorm);
+  if (normed) return normed.label;
+
+  // 4. Partial match on first 14 normalized chars (handles typos like "Curiousity")
+  const partial = PRINCIPLES.find(p => {
+    const pn = normStr(p.label);
+    return sNorm.startsWith(pn.slice(0, 14)) || pn.startsWith(sNorm.slice(0, 14));
+  });
   return partial ? partial.label : null;
 }
 
