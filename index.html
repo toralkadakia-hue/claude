@@ -550,6 +550,16 @@
       </div>
     </div>
 
+    <div class="admin-card" id="diag-card" style="display:none">
+      <h3 style="display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="toggleDiag()">
+        <span>🔍 Processing Diagnostics</span>
+        <span id="diag-toggle" style="font-size:0.8rem;font-weight:400;color:#64748b">▼ Show</span>
+      </h3>
+      <div id="diag-body" style="display:none;margin-top:14px">
+        <div id="diag-content"></div>
+      </div>
+    </div>
+
     <div class="admin-card" id="leaders-card" style="display:none">
       <h3>Leaders Found</h3>
       <p style="font-size:0.82rem;color:#64748b;margin-bottom:14px">
@@ -1127,6 +1137,96 @@ function generateActionItems(leader) {
   return items.slice(0, 5);
 }
 
+/* ── DIAGNOSTICS ── */
+function toggleDiag() {
+  const body   = document.getElementById('diag-body');
+  const toggle = document.getElementById('diag-toggle');
+  const shown  = body.style.display !== 'none';
+  body.style.display  = shown ? 'none' : 'block';
+  toggle.textContent  = shown ? '▼ Show' : '▲ Hide';
+}
+
+function renderDiag(data) {
+  const d    = data._diag || {};
+  const colMap      = d.colMap || {};
+  const princCols   = d.principleCols || [];
+  const leaders     = data.leaders || [];
+
+  const colRows = Object.entries(colMap).map(([k, v]) => {
+    const ok = v.col >= 0;
+    return `<tr>
+      <td><code>${k}</code></td>
+      <td style="text-align:center;color:${ok?'#16a34a':'#dc2626'}">${ok ? v.col : '⚠'}</td>
+      <td style="color:${ok?'#374151':'#dc2626'};font-size:0.8rem">${v.header}</td>
+    </tr>`;
+  }).join('');
+
+  const princRows = princCols.map(p => {
+    const ok = p.col >= 0 && p.header && !p.header.includes('⚠');
+    return `<tr>
+      <td style="font-size:0.82rem">${p.label}</td>
+      <td style="text-align:center;color:${ok?'#16a34a':'#dc2626'}">${ok ? p.col : '⚠'}</td>
+      <td style="color:${ok?'#374151':'#dc2626'};font-size:0.76rem">${p.header}</td>
+    </tr>`;
+  }).join('');
+
+  const leaderRows = leaders.map(l => {
+    const rc = l._relCounts || {};
+    const pills = Object.entries(rc).map(([rel, n]) =>
+      `<span style="background:#e0f2fe;color:#0369a1;font-size:0.72rem;font-weight:700;padding:2px 7px;border-radius:4px;margin-right:4px">${rel}: ${n}</span>`
+    ).join('');
+    const strTotal = Object.values(l.strengths||{}).flatMap(Object.values).reduce((a,b)=>a+b,0);
+    const devTotal = Object.values(l.development||{}).flatMap(Object.values).reduce((a,b)=>a+b,0);
+    return `<tr>
+      <td style="font-size:0.85rem;font-weight:600">${l.name}</td>
+      <td>${pills}</td>
+      <td style="text-align:center;font-size:0.82rem">${strTotal}</td>
+      <td style="text-align:center;font-size:0.82rem">${devTotal}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('diag-content').innerHTML = `
+    <p style="font-size:0.8rem;color:#64748b;margin-bottom:12px">
+      Use this to verify that all columns were detected correctly. Any ⚠ row means that column was not found — ratings or selections from that field will be missing.
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div>
+        <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-bottom:8px">Question Columns</div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.82rem">
+          <thead><tr>
+            <th style="text-align:left;padding:4px 6px;background:#f8fafc;font-size:.7rem;color:#94a3b8">Field</th>
+            <th style="text-align:center;padding:4px 6px;background:#f8fafc;font-size:.7rem;color:#94a3b8">Col #</th>
+            <th style="text-align:left;padding:4px 6px;background:#f8fafc;font-size:.7rem;color:#94a3b8">Header Found</th>
+          </tr></thead>
+          <tbody>${colRows}</tbody>
+        </table>
+      </div>
+      <div>
+        <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-bottom:8px">Rating Columns (per Principle)</div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.82rem">
+          <thead><tr>
+            <th style="text-align:left;padding:4px 6px;background:#f8fafc;font-size:.7rem;color:#94a3b8">Principle</th>
+            <th style="text-align:center;padding:4px 6px;background:#f8fafc;font-size:.7rem;color:#94a3b8">Col #</th>
+            <th style="text-align:left;padding:4px 6px;background:#f8fafc;font-size:.7rem;color:#94a3b8">Header Found</th>
+          </tr></thead>
+          <tbody>${princRows}</tbody>
+        </table>
+      </div>
+    </div>
+    <div style="margin-top:20px">
+      <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-bottom:8px">Leaders Detected</div>
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr>
+          <th style="text-align:left;padding:4px 6px;background:#f8fafc;font-size:.7rem;color:#94a3b8">Leader</th>
+          <th style="text-align:left;padding:4px 6px;background:#f8fafc;font-size:.7rem;color:#94a3b8">Responses by Relationship</th>
+          <th style="text-align:center;padding:4px 6px;background:#f8fafc;font-size:.7rem;color:#94a3b8">Strength Mentions</th>
+          <th style="text-align:center;padding:4px 6px;background:#f8fafc;font-size:.7rem;color:#94a3b8">Dev Mentions</th>
+        </tr></thead>
+        <tbody>${leaderRows}</tbody>
+      </table>
+    </div>`;
+}
+
 /* ── DATA PROCESSING ── */
 
 // Normalize relationship labels — handles plurals, casing, and Quantum variations
@@ -1192,26 +1292,38 @@ function processWorkbook(wb) {
 
   // Detect column positions dynamically from header row so future exports still work
   const hdrs = (rows[0] || []).map(h => (h || '').toString().toLowerCase().trim());
-  const findCol = (...terms) => hdrs.findIndex(h => terms.some(t => h.includes(t.toLowerCase())));
+  // findCol: normalize both search terms and headers so & vs and, punctuation, etc. don't break matching
+  const findCol = (...terms) => hdrs.findIndex(h => terms.some(t => normStr(h).includes(normStr(t))));
 
   const C = {
     email:  findCol('email'),
     status: findCol('participant status'),
     rel:    findCol('relationship with the leader'),
-    strQ:   findCol('most impactful leadership principles'),
-    devQ:   findCol('could improve'),
+    // strQ: multi-select of top strengths — Quantum may word this several ways
+    strQ:   findCol('most impactful leadership', 'most impactful principle', 'demonstrates most', 'greatest strength', 'most effective leadership'),
+    // devQ: multi-select of development areas — Quantum may word this several ways
+    devQ:   findCol('could improve', 'most improve', 'opportunity for development', 'development area', 'opportunity for improvement'),
     nameQ:  findCol('who are you rating'),
     ex:     findCol('provide examples'),
     imp:    findCol('provide feedback on why'),
-    next:   findCol('recommend this leader focus', 'developing in the next'),
+    next:   findCol('recommend this leader focus', 'developing in the next', 'focus on in the next'),
   };
 
-  // Map each principle to its column by matching header text
+  // Map each principle to its column by matching normalized header text (handles & vs and)
   PRINCIPLES.forEach(p => {
-    const key = p.label.toLowerCase().substring(0, 18);
-    const found = hdrs.findIndex(h => h.includes(key));
+    const key = normStr(p.label).substring(0, 18);
+    const found = hdrs.findIndex(h => normStr(h).includes(key));
     if (found >= 0) p.col = found;
   });
+
+  // Build diagnostics for the admin panel
+  const diagColMap = {};
+  Object.entries(C).forEach(([k, v]) => {
+    diagColMap[k] = { col: v, header: v >= 0 ? hdrs[v] : '⚠ NOT FOUND' };
+  });
+  const diagPrincipleCols = PRINCIPLES.map(p => ({
+    label: p.label, col: p.col, header: hdrs[p.col] || '⚠ NOT FOUND'
+  }));
 
   const leaderMap = {};
 
@@ -1291,7 +1403,10 @@ function processWorkbook(wb) {
         nextSteps:   r.nextSteps,
       }));
 
-    return { name: leader.name, email: leader.email, totalCompleted: leader.responses.length, ratings, strengths: strengthCounts, development: developCounts, comments };
+    const relCounts = {};
+    leader.responses.forEach(r => { relCounts[r.rel] = (relCounts[r.rel] || 0) + 1; });
+
+    return { name: leader.name, email: leader.email, totalCompleted: leader.responses.length, ratings, strengths: strengthCounts, development: developCounts, comments, _relCounts: relCounts };
   });
 
   let cycleName = '360° Feedback Assessment';
@@ -1308,7 +1423,19 @@ function processWorkbook(wb) {
     if (d[1]) responseRate = { invited: +d[1][1] || 0, completed: +d[1][2] || 0 };
   }
 
-  return { lastUpdated: new Date().toISOString(), cycleName, responseRate, leaders };
+  // Per-leader relationship row counts for diagnostics
+  const diagRelCounts = {};
+  leaders.forEach(l => {
+    diagRelCounts[l.name] = {};
+    (l._rawResponses || []).forEach(r => {
+      diagRelCounts[l.name][r.rel] = (diagRelCounts[l.name][r.rel] || 0) + 1;
+    });
+  });
+
+  return {
+    lastUpdated: new Date().toISOString(), cycleName, responseRate, leaders,
+    _diag: { colMap: diagColMap, principleCols: diagPrincipleCols }
+  };
 }
 
 /* ── ADMIN ── */
@@ -1354,7 +1481,9 @@ function processFile() {
       processed = processWorkbook(wb);
       statusEl.className = 'status-ok';
       statusEl.textContent = `✓ Found ${processed.leaders.length} leader(s)`;
+      renderDiag(processed);
       renderLeadersTable(processed.leaders);
+      document.getElementById('diag-card').style.display = 'block';
       document.getElementById('leaders-card').style.display = 'block';
       document.getElementById('publish-card').style.display = 'block';
     } catch (err) {
