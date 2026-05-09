@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-08T16:15:22.059Z",
+  "lastUpdated": "2026-05-09T01:58:55.195Z",
   "cycleName": "360 Feedback Assessment Pilot - Simplified 2026",
   "responseRate": {
     "invited": 10,
@@ -9,7 +9,7 @@
     {
       "name": "Isha Paul",
       "email": "isha.paul@vertexeducation.com",
-      "totalCompleted": 3,
+      "totalCompleted": 8,
       "ratings": [
         {
           "principle": "Customer Centric Curiosity",
@@ -17,7 +17,7 @@
           "Self": 3,
           "Peer": 4,
           "Manager": null,
-          "Direct Report": null,
+          "Direct Report": 4.2,
           "Stakeholder": null
         },
         {
@@ -26,7 +26,7 @@
           "Self": 4,
           "Peer": 4.5,
           "Manager": null,
-          "Direct Report": null,
+          "Direct Report": 4.6,
           "Stakeholder": null
         },
         {
@@ -35,7 +35,7 @@
           "Self": 3,
           "Peer": 4.5,
           "Manager": null,
-          "Direct Report": null,
+          "Direct Report": 4.2,
           "Stakeholder": null
         },
         {
@@ -44,7 +44,7 @@
           "Self": 4,
           "Peer": 4.5,
           "Manager": null,
-          "Direct Report": null,
+          "Direct Report": 4.4,
           "Stakeholder": null
         },
         {
@@ -53,7 +53,7 @@
           "Self": 3,
           "Peer": 3.5,
           "Manager": null,
-          "Direct Report": null,
+          "Direct Report": 4.4,
           "Stakeholder": null
         },
         {
@@ -62,7 +62,7 @@
           "Self": 4,
           "Peer": 4,
           "Manager": null,
-          "Direct Report": null,
+          "Direct Report": 4.4,
           "Stakeholder": null
         },
         {
@@ -71,7 +71,7 @@
           "Self": 2,
           "Peer": 4,
           "Manager": null,
-          "Direct Report": null,
+          "Direct Report": 4.2,
           "Stakeholder": null
         },
         {
@@ -80,7 +80,7 @@
           "Self": 3,
           "Peer": 3.5,
           "Manager": null,
-          "Direct Report": null,
+          "Direct Report": 3.8,
           "Stakeholder": null
         },
         {
@@ -89,7 +89,7 @@
           "Self": 2,
           "Peer": 4,
           "Manager": null,
-          "Direct Report": null,
+          "Direct Report": 4.2,
           "Stakeholder": null
         },
         {
@@ -98,7 +98,7 @@
           "Self": 3,
           "Peer": 4.5,
           "Manager": null,
-          "Direct Report": null,
+          "Direct Report": 4,
           "Stakeholder": null
         },
         {
@@ -107,7 +107,7 @@
           "Self": 3,
           "Peer": 4,
           "Manager": null,
-          "Direct Report": null,
+          "Direct Report": 4,
           "Stakeholder": null
         },
         {
@@ -116,7 +116,7 @@
           "Self": 4,
           "Peer": 4.5,
           "Manager": null,
-          "Direct Report": null,
+          "Direct Report": 4.4,
           "Stakeholder": null
         }
       ],
@@ -125,21 +125,21 @@
           "Self": 0,
           "Peer": 0,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 1,
           "Stakeholder": 0
         },
         "Creative Problem Solving": {
           "Self": 1,
           "Peer": 1,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 3,
           "Stakeholder": 0
         },
         "Commitment to Excellence": {
           "Self": 0,
           "Peer": 1,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 2,
           "Stakeholder": 0
         },
         "Work Ethic and Accountability": {
@@ -153,14 +153,14 @@
           "Self": 0,
           "Peer": 0,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 1,
           "Stakeholder": 0
         },
         "Proactive Leadership": {
           "Self": 0,
           "Peer": 1,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 1,
           "Stakeholder": 0
         },
         "Respect and Empathy": {
@@ -181,7 +181,7 @@
           "Self": 0,
           "Peer": 0,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 2,
           "Stakeholder": 0
         },
         "Clear Expectations": {
@@ -195,14 +195,14 @@
           "Self": 0,
           "Peer": 0,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 2,
           "Stakeholder": 0
         },
         "Involved Leadership": {
           "Self": 1,
           "Peer": 1,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 2,
           "Stakeholder": 0
         }
       },
@@ -225,7 +225,7 @@
           "Self": 1,
           "Peer": 0,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 1,
           "Stakeholder": 0
         },
         "Work Ethic and Accountability": {
@@ -274,21 +274,21 @@
           "Self": 0,
           "Peer": 0,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 1,
           "Stakeholder": 0
         },
         "Growth Leadership": {
           "Self": 0,
           "Peer": 0,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 3,
           "Stakeholder": 0
         },
         "Involved Leadership": {
           "Self": 0,
           "Peer": 0,
           "Manager": 0,
-          "Direct Report": 0,
+          "Direct Report": 1,
           "Stakeholder": 0
         }
       },
@@ -310,6 +310,36 @@
           "examples": "Creative problem solving - I tend to think in structured ways, especially in how I approach more complex problems. One example of this is my work with Workstream 5. Our first step was to break it down into more digestible pieces and build an issue tree that helps us drive the work forward.\r\n\r\nWork ethic & accountability - I care deeply about the quality of my work and will go the extra mile on it, frequently. I hold myself and my teams accountable. An example of this is on performance evaluations -- I will both work hard on it myself and also ensure that my team is supporting it with rigor on a suitable and manageable timeline.\r\n\r\nInvolved leadership - I make it a point to ask my teams questions and stay engaged with the details so that I can be a helpful thought partner. One example of this is being able to take on the day-to-day of HR when the previous Director departed. Without deep involvement, taking on that responsibility would have been impossible.",
           "improvement": "I think these are all areas where I can better my skillset. I don't manage conflict particularly well (I avoid it). I think I could do more to channel CI techniques more formally. I also think I let stress get to me and could manage it better with regulation and rest.",
           "nextSteps": "I'd say respect and empathy to improve my conflict management style and capabilities."
+        },
+        {
+          "relationship": "Direct Report",
+          "examples": "Isha is very passionate about her work and what Vertex does; that comes through in most everything she does. Given the amount of things she's involved in and work she gets done, I'm not entirely sure she sleeps! She's also very creative at bringing her management consultant toolkit to work. She excels at helping others craft their arguments to speak to different types of audiences, which comes in handy with most work.",
+          "improvement": "I'd like to note that it was a stretch to get the third category here (Commitment to Excellence) so I'm going to focus on Clear Expectations and Growth Leadership. To me, these two are very intertwined. I've observed a disconnect between what Isha presses org-wide and what she presses with her own teams (or what she presses at a team level vs. with individuals on that team). For example, she oversees engagement surveys and presents results to the full company. However, teams she oversees do not consistently discuss (or even see) results from their own team. It's hard to reconcile those behaviors and take to heart the importance of these survey results.",
+          "nextSteps": "I'd like to see Isha focus more on helping those who report to her develop in the way that makes sense for them. I've noticed that Isha tends to focus on how she can best help each of her reports develop in a way that plays to her strengths, which I think is natural. However, that may not be what is best for each of her reports; they may need something different."
+        },
+        {
+          "relationship": "Direct Report",
+          "examples": "Isha does an excellent job (whether in a 5 min huddle or a 1 hour steerco) actively sharpening the ideas and work around her. Her ability to translate thoughts and straddle multiple perspectives helps her demystify problems better than anyone I've met. Most obvious is she has a demonstrated structure/pattern of problem solving that works for her and she uses it to elevate and push those around her. \r\n\r\nThe strongest example is us whiteboarding in her office to talk through ideas and concepts. A leader who partners with their people has proven effective for my development. \r\n\r\nAsking \"what are the 2nd and 3rd level insights\" plays in the back of my head now when I'm prepping work. \"what's the so-what?\" Watching her step into the enrollment issue and the SFO transformation and shape our forward vision with her thoughts was amazing. For SFO Transformation, it changed how the only workstream owners are showing up and the quality of feedback they're giving. We've reshaped our weekly meetings to based on the example W5 set under Isha's leadership. I aspire to develop that skill in myself.",
+          "improvement": "I would like to see Isha create more space during emergencies for direct reports to express their full perspectives and develop collaborative ways to grow together, rather than feeling like we are just being pulled along with her. Our work often has a new fire or emergency where we work under tight deadlines (not due to our actions, but because we are resolving issues created by other teams) and this pressure limits our opportunities to embrace the concept of \"failing forward\" for growth when immediate solutions are required. Isha is typically brought in because she is the most structured and vetted problem solver so it's a huge responsibility for her to solve. I want to make sure I'm growing to share that burden with her.\r\n\r\nDuring the fire, I appreciate that Isha will point out when we're not aligned by saying things like \"that's not the right question\" or \"that's not interesting,\" but it can leave me unclear about the reasons for the misalignment. Sometimes, I'm stuck wondering is this an issue because it's not how you would've done it or is it objectively not good? Additionally, I don't see the outcomes of these misalignments, which makes it difficult to grasp their severity (was this leading to a major issue or a slight inconvenience) typically leading to self-doubt if it \"feels\" major. While this approach does typically to set the direction we follow at the point of correction, I've noticed that this can lead to later issues because we weren't truly aligned and I was simply following her lead. As an individual contributor, this wasn't a problem, but as a team leader with different expectations, it has become a challenge for me. \r\n\r\nI don't think this falls totally on her, because she may believe we are fully aligned so on my part, I'm owning the responsibility of being more vocal about the need to pause a conversation when it arises and ask more questions. I want to trust those questions are welcome.",
+          "nextSteps": "From the outside looking it, I would like to she Isha have a healthier workload/balance. She's at her best when her stress is at a manageable level but I feel she's constantly fixing everyone's mess. \r\n\r\nShe's responsible for carrying the mental load of the C-suite and that's a difficult thing so I hope she can rally her peers to work with her and in turn support her better."
+        },
+        {
+          "relationship": "Direct Report",
+          "examples": "I have only reported directly to Isha for a short time, but that time has already had a meaningful impact on my career. One of the first major initiatives we worked through together was my annual goals. This was the first time at Vertex that a leader not only took the time to understand my professional interests, but also actively invested in my development. Isha challenged me to raise my own standards by seeing potential in me that I do not always recognize in myself. She encouraged me to create rigorous yet motivating goals that I have felt genuinely excited to own throughout this year. Her ability to provide personalized development support while pushing for growth is a strong example of Growth Leadership.\r\n\r\nThis year has brought constant change and adaptation for our team, and with the departure of our director during one of the busiest times of year for our function, I was genuinely concerned about our ability to sustain operations with our existing workload and limited headcount. Under Isha’s leadership, however, the team has remained steady and focused. She has worked to mobilize the team, eliminate unnecessary noise, and maintain accountability for the responsibilities we continue to own. When capacity gaps arise, Isha consistently steps in to carry additional responsibility herself to ensure the function continues operating effectively. Her ability to remain calm, adaptable, and accountable under pressure is a clear reflection of both Resilience and Accountability.\r\n\r\nIsha is not an executive leader who engages only at a high level or from a distance. She is deeply immersed in the day-to-day work of the team and consistently available to problem solve, make decisions, and provide support with little need for additional context. She stays close to the work, which allows her to quickly identify bottlenecks, provide clarity, and help move initiatives forward efficiently. I trust Isha to make quick, thoughtful, and confident decisions when issues are escalated to her. Her presence and partnership with the team strongly demonstrate Involved Leadership.",
+          "improvement": "While Isha consistently demonstrates care for the customer perspective and values data-informed decision making, I believe there is an opportunity to continue strengthening Customer Centric Curiosity within our function. Our team currently faces challenges with fragmented and outdated data sources, limited reporting infrastructure, and loss of historical knowledge around where key information lives and how it can best be utilized. Because of this, customer insights are not always as accessible or actionable as they could be.\r\n\r\nThat said, I have already seen Isha take meaningful steps in the right direction by prioritizing projects focused on customer feedback and survey analysis. She has empowered me to help build more intentional feedback loops that better capture the voice of our customers and provide clearer insights into their experiences. Continuing to invest in this area will help our function make more informed decisions, identify trends earlier, and strengthen our ability to proactively adapt strategies based on our internal customer needs.",
+          "nextSteps": "I think one area Isha could continue focusing on over the next 3 months is building stronger systems for customer feedback and data utilization within our function. I know customer perspective matters a lot to her, and she does use the data we have available, but the reality is that many of our current data sources are outdated, messy, or difficult to access because knowledge around them has been lost over time.\r\n\r\nThat said, I already see her trying to move us in a better direction. She has assigned me projects focused on feedback surveys and survey analysis so we can better understand the voice of our customers and make more informed decisions as a team. I think continuing to invest time in creating more reliable feedback loops, documentation, and usable reporting would really strengthen our function long term and help us become more proactive instead of reactive."
+        },
+        {
+          "relationship": "Direct Report",
+          "examples": "Isha consistently works with me to improve my process.  She encourages me to try my ideas in how to make things better while at the same time contributing to making sure my ideas actually get off the ground.  When they don't work, we quickly pivot.  My process relies on a lot of other people, and she helps hold them accountable.",
+          "improvement": "Long term career pathing is a bit unclear, but I feel confident Isha has a plan for the short and long term for me.",
+          "nextSteps": "With an effort not to out my department, we need SOPs to be implemented with all of the acquisition companies and for some stability.  This is not something where there's fault involved, this is just a big picture thing that will have a positive impact on the entire company."
+        },
+        {
+          "relationship": "Direct Report",
+          "examples": "Involved Leadership: Isha does a fantastic job at staying 'in the know' of my projects, where I'm at with something, providing solutions if I'm stuck on something, and removing bottlenecks. I have never felt micro-managed by her, but truly feel like she trusts me to get my work done and do a good job. She is always willing to offer her opinion and provide feedback on how I can improve, but I appreciate that there is the trust between us. \r\n\r\nGrowth Leadership: I have been very appreciative of the resources Isha has encouraged me to look in to regarding my growth and development at Vertex. She has encouraged me to look to outside resources when necessary, but she is also very open to have candid conversations about what growth for me in my role looks like. She has helped lay out the next steps for me to grow in my role, while also giving those actionable items I can take to get there. I am very appreciative of the time she takes to make me feel like I have opportunities to grow in my role at Vertex. \r\n\r\nCreative Problem Solving: I am often amazed at Isha's ability to quickly pivot when a problem arises. Things change, and they change often. One approach we might have agreed on often changes quickly, but Isha is always willing to help me look at solutions through a different lens, and find a way to move forward together.",
+          "improvement": "I think there are a lot of opportunities with things like the engagement survey to really create some more actionable ideas.",
+          "nextSteps": "I would love to see her turn questions around more often. Not in a 'answer a question with a question' type of way, but I do think she has a tendency to sometimes just provide an answer or a solution so we can move forward (which is sometimes needed!) I think particularly with our working relationship, when it's possible, helping guide through problems or ideas would help me grow as an employee as well."
         }
       ]
     }
